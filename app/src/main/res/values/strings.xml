@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SharkBankApp</string>
+    <string name="id_cliente">Id. Cliente:</string>
+    <string name="id">ID</string>
+    <string name="inciar_sesi_n">Inciar sesión</string>
+    <string name="clave">Clave:</string>
+</resources>
