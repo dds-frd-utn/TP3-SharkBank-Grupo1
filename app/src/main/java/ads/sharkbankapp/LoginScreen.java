@@ -52,7 +52,7 @@ public class LoginScreen extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String result = null;
             try {
-                result = RESTService.makeGetRequest("http://www.mocky.io/v2/5b22511f2e00006500e31619");
+                result = RESTService.makeGetRequest("http://localhost:8080/tibuuroncitos/rest/cliente/5");
             } catch (IOException e) {
                 Log.d("INFO", e.toString());
             }

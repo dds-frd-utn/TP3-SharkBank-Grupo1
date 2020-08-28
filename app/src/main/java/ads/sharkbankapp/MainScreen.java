@@ -83,7 +83,7 @@ public class MainScreen extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String result = null;
             try {
-                result = RESTService.makeGetRequest("http://www.mocky.io/v2/5b2253032e00009100e3162b");
+                result = RESTService.makeGetRequest("http://localhost:8080/tibuuroncitos/rest/cliente/5");
             } catch (IOException e) {
                 Log.d("INFO", e.toString());
             }
@@ -123,7 +123,7 @@ public class MainScreen extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String result = null;
             try {
-                result = RESTService.makeGetRequest("http://www.mocky.io/v2/5b2253412e00002a00e3162f");
+                result = RESTService.makeGetRequest("http://localhost:8080/tibuuroncitos/rest/cliente/5");
             } catch (IOException e) {
                 Log.d("INFO", e.toString());
             }
@@ -152,7 +152,7 @@ public class MainScreen extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String result = null;
             try {
-                result = RESTService.makeGetRequest("http://www.mocky.io/v2/5b2276372e00007e00e316cf");
+                result = RESTService.makeGetRequest("http://localhost:8080/tibuuroncitos/rest/cliente/5");
             } catch (IOException e) {
                 Log.d("INFO", e.toString());
             }
@@ -162,85 +162,69 @@ public class MainScreen extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            if (result != null) {
-                JSONArray movimientos;
-                JSONObject movimiento = new JSONObject();
-                try {
-                    movimientos = new JSONArray(result);
-                } catch (JSONException e) {
-                    Log.d("INFO", e.toString());
-                    return;
-                }
-                Log.d("INFO", movimientos.toString());
-                TextView target;
 
-                // Fila 1
-                target = findViewById(R.id.tipo1);
-                try {
-                    movimiento = movimientos.getJSONObject(0);
-                } catch (JSONException e) {Log.d("INFO", e.toString());}
-                try {
-                    if (movimiento.getInt("tipo") == 0) {
-                        target.setText("EXTRACCIÓN");
-                    } else {
-                        target.setText("DEPOSITO");
-                    }
-                } catch(JSONException e) {Log.d("INFO", e.toString());}
-                target = findViewById(R.id.cantidad1);
-                try {
-                    target.setText(String.valueOf(movimiento.getInt("importe")));
-                } catch(JSONException e) {Log.d("INFO", e.toString());}
-                
-                // Fila 2
-                target = findViewById(R.id.tipo2);
-                try {
-                    movimiento = movimientos.getJSONObject(1);
-                } catch (JSONException e) {Log.d("INFO", e.toString());}
-                try {
-                    if (movimiento.getInt("tipo") == 0) {
-                        target.setText("EXTRACCIÓN");
-                    } else {
-                        target.setText("DEPOSITO");
-                    }
-                } catch(JSONException e) {Log.d("INFO", e.toString());}
-                target = findViewById(R.id.cantidad2);
-                try {
-                    target.setText(String.valueOf(movimiento.getInt("importe")));
-                } catch(JSONException e) {Log.d("INFO", e.toString());}
-
-                // Fila 3
-                target = findViewById(R.id.tipo3);
-                try {
-                    movimiento = movimientos.getJSONObject(2);
-                } catch (JSONException e) {Log.d("INFO", e.toString());}
-                try {
-                    if (movimiento.getInt("tipo") == 0) {
-                        target.setText("EXTRACCIÓN");
-                    } else {
-                        target.setText("DEPOSITO");
-                    }
-                } catch(JSONException e) {Log.d("INFO", e.toString());}
-                target = findViewById(R.id.cantidad3);
-                try {
-                    target.setText(String.valueOf(movimiento.getInt("importe")));
-                } catch(JSONException e) {Log.d("INFO", e.toString());}
-
-                // Fila 4
-                target = findViewById(R.id.tipo4);
-                try {
-                    movimiento = movimientos.getJSONObject(3);
-                } catch (JSONException e) {Log.d("INFO", e.toString());}
-                try {
-                    if (movimiento.getInt("tipo") == 0) {
-                        target.setText("EXTRACCIÓN");
-                    } else {
-                        target.setText("DEPOSITO");
-                    }
-                } catch(JSONException e) {Log.d("INFO", e.toString());}
-                target = findViewById(R.id.cantidad4);
-                try {
-                    target.setText(String.valueOf(movimiento.getInt("importe")));
-                } catch(JSONException e) {Log.d("INFO", e.toString());}
+            if (result != null){
+                    JSONArray movimientos;
+                    JSONObject movimiento = new JSONObject();
+                    TextView target;
+                    try {
+                        // Fila 1
+                        target = findViewById(R.id.tipo1);
+                        movimientos = new JSONArray(result);
+                        Log.d("INFO", movimientos.toString());
+                        movimiento = movimientos.getJSONObject(0);
+                        if( movimiento.has("nombre") && !movimiento.isNull("nombre") ){
+                            if (movimiento.getInt("tipo") == 0){
+                                target.setText("EXTRACCIÓN");
+                            } else {
+                                target.setText("DEPOSITO");
+                            }
+                            target = findViewById(R.id.cantidad1);
+                            target.setText(String.valueOf(movimiento.getInt("importe")));
+                        }
+                        // Fila 2
+                        target = findViewById(R.id.tipo2);
+                        movimientos = new JSONArray(result);
+                        Log.d("INFO", movimientos.toString());
+                        movimiento = movimientos.getJSONObject(0);
+                        if( movimiento.has("nombre") && !movimiento.isNull("nombre") ){
+                            if (movimiento.getInt("tipo") == 0){
+                                target.setText("EXTRACCIÓN");
+                            } else {
+                                target.setText("DEPOSITO");
+                            }
+                            target = findViewById(R.id.cantidad2);
+                            target.setText(String.valueOf(movimiento.getInt("importe")));
+                        }
+                        // Fila 3
+                        target = findViewById(R.id.tipo3);
+                        movimientos = new JSONArray(result);
+                        Log.d("INFO", movimientos.toString());
+                        movimiento = movimientos.getJSONObject(0);
+                        if( movimiento.has("nombre") && !movimiento.isNull("nombre") ){
+                            if (movimiento.getInt("tipo") == 0){
+                                target.setText("EXTRACCIÓN");
+                            } else {
+                                target.setText("DEPOSITO");
+                            }
+                            target = findViewById(R.id.cantidad3);
+                            target.setText(String.valueOf(movimiento.getInt("importe")));
+                        }
+                        // Fila 4
+                        target = findViewById(R.id.tipo4);
+                        movimientos = new JSONArray(result);
+                        Log.d("INFO", movimientos.toString());
+                        movimiento = movimientos.getJSONObject(0);
+                        if( movimiento.has("nombre") && !movimiento.isNull("nombre") ){
+                            if (movimiento.getInt("tipo") == 0){
+                                target.setText("EXTRACCIÓN");
+                            } else {
+                                target.setText("DEPOSITO");
+                            }
+                            target = findViewById(R.id.cantidad4);
+                            target.setText(String.valueOf(movimiento.getInt("importe")));
+                        }
+                    } catch (JSONException e) {Log.d("INFO", e.toString());}
             }
         }
     }
